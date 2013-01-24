@@ -17,6 +17,8 @@ namespace Math.ExpressionEvaluator
                     return new SubOperator();
                 case '*':
                     return new MulOperator();
+                case '/':
+                    return new DivOperator();
                 default:
                     throw new InvalidOperationException(string.Format("Unknown operator [{0}]", op));
             }
@@ -45,6 +47,14 @@ namespace Math.ExpressionEvaluator
         public override int Compute(Operand left, Operand right)
         {
             return left.Value * right.Value;
+        }
+    }
+
+    public class DivOperator : Operator
+    {
+        public override int Compute(Operand left, Operand right)
+        {
+            return left.Value / right.Value;
         }
     }
 }

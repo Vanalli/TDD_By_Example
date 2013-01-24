@@ -18,16 +18,14 @@ namespace Math.ExpressionEvaluator.Tests
         }
 
         [TestMethod]
-        public void Plus_Sigh_Returns_AddOperator()
+        public void Plus_Sign_Returns_AddOperator()
         {
-            var sut = new OperatorFactory();
             Check('+', typeof(AddOperator));
         }
 
         [TestMethod]
-        public void Minus_Sig_nReturns_SubOperator()
+        public void Minus_Sign_Returns_SubOperator()
         {
-            var sut = new OperatorFactory();
             Check('-',typeof(SubOperator));
         }
 
@@ -35,20 +33,24 @@ namespace Math.ExpressionEvaluator.Tests
         [ExpectedExceptionAttribute(typeof(InvalidOperationException))]
         public void Unknown_Sign_Throws_Exception()
         {
-            var sut = new OperatorFactory();
             sut.Create('x');
         }
 
         [TestMethod]
         public void Asterisk_Sign_Returns_MulOperator()
         {
-            var sut = new OperatorFactory();
             Check('*', typeof(MulOperator));
+        }
+
+        [TestMethod]
+        public void Divide_Sign_Returns_DivOperator()
+        {
+            Check('/', typeof(DivOperator));
         }
 
         private void Check(char op, Type type)
         {
-            var result = sut.Create('+');
+            var result = sut.Create(op);
             Assert.IsInstanceOfType(result, type);
         }
     }
