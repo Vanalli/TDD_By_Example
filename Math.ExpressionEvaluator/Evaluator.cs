@@ -13,18 +13,18 @@ namespace Math.ExpressionEvaluator
             {
                 throw new InvalidOperationException();
             }
-            string[] parts;
-            if (s.IndexOf('+') >= 0)
+
+            var parser = new Parser();
+            var elements = parser.Parse(s).ToList();
+
+            if (elements.Count == 3)
             {
-                var parts = s.Split('+');
-                return parts
-                    .Select(part => Convert.ToInt32(part))
-                    .Sum();
-            }
-            else if(s.IndexOf('-') >= 0)
-            {
-                var parts
-            }
+                var left = elements[0] as Operand;
+                var op = elements[1] as Operator;
+                var right = elements[2] as Operand;
+                return op.Compute(left, right);
+           } 
+            return Convert.ToInt32(s);
         }
     }
 }

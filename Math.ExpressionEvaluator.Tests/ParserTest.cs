@@ -10,9 +10,9 @@ namespace Math.ExpressionEvaluator.Tests
     /// Summary description for UnitTest1
     /// </summary>
     [TestClass]
-    public class EvaluatorTests
+    public class ParserTest
     {
-        public EvaluatorTests()
+        public ParserTest()
         {
             //
             // TODO: Add constructor logic here
@@ -59,65 +59,15 @@ namespace Math.ExpressionEvaluator.Tests
         //
         #endregion
 
-        #region Helper method
-
-        public static void CheckEvaluation(string s, int expected)
-        {
-            var sut = new Evaluator();
-            var result = sut.Eval(s);
-            Assert.AreEqual(expected, result);
-        }
-
-        #endregion
-
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
-        public void String_Vazia_Ou_Nula_Deve_Retornar_Exception()
+        public void Parser_Returns_Addition_Elements()
         {
-            var sut = new Evaluator();
-            sut.Eval(String.Empty);
-        }
-
-        [TestMethod]
-        public void Numero_De_Um_Digito_E_Avaliado_Como_Seu_Valor_Inteiro()
-        {
-            CheckEvaluation("7", 7);
-        }
-
-        [TestMethod]
-        public void Numero_De_Um_Digito_E_Avaliado_Como_Seu_Valor_Inteiro_Segunda_Tentativa()
-        {
-            CheckEvaluation("5", 5);
-        }
-
-        [TestMethod]
-        public void Numero_De_Multiplos_Digitos_E_Avaliado_Como_Seu_Valor_Inteiro()
-        {
-            CheckEvaluation("324", 324);
-        }
-
-        [TestMethod]
-        public void Adicionando_Dois_Numeros()
-        {
-            CheckEvaluation("1+2", 3);
-        }
-
-        [TestMethod]
-        public void Subtraindo_Dois_Numeros()
-        {
-            CheckEvaluation("88-20", 68);
-        }
-
-        [TestMethod]
-        public void Can_Multiply_Two_Integer_Numbers()
-        {
-            CheckEvaluation("12*30", 360);
-        }
-
-        [TestMethod]
-        public void Can_Divide_Two_Integer_Numbers()
-        {
-            CheckEvaluation("30/5", 6);
+            var sut = new Parser();
+            var result = sut.Parse("1+2").ToList();
+            Assert.AreEqual(3, result.Count);
+            Assert.IsInstanceOfType(result[0], typeof(Operand));
+            Assert.IsInstanceOfType(result[1], typeof(Operator));
+            Assert.IsInstanceOfType(result[2], typeof(Operand));
         }
     }
 }
