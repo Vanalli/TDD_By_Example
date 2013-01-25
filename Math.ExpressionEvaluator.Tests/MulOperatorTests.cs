@@ -13,7 +13,7 @@ namespace Math.ExpressionEvaluator.Tests
         public void MulOperator_Computes_Correct_Value()
         {
             var sut = new MulOperator();
-            var result = sut.Compute(new Operand("10"), new Operand("25"));
+            var result = sut.Compute(new Operand(10), new Operand(25));
             Assert.AreEqual(250, result);
         }
     }

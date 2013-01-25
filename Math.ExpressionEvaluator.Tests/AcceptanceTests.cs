@@ -62,7 +62,8 @@ namespace Math.ExpressionEvaluator.Tests
         [TestMethod]
         public void Consegue_Somar_Dois_Numeros_Inteiros()
         {
-            var sut = new Evaluator();
+            var parser = new Parser(new OperatorFactory(), new OperandFactory());
+            var sut = new Evaluator(parser);
             var result = sut.Eval("10+25");
             Assert.AreEqual(35, result);
         }
@@ -70,7 +71,8 @@ namespace Math.ExpressionEvaluator.Tests
         [TestMethod]
         public void Consegue_Subtrair_Dois_Numeros_Inteiros()
         {
-            var sut = new Evaluator();
+            var parser = new Parser(new OperatorFactory(), new OperandFactory());
+            var sut = new Evaluator(parser);
             var result = sut.Eval("300-5");
             Assert.AreEqual(295, result);
         }

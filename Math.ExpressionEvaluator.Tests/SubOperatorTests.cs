@@ -7,13 +7,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Math.ExpressionEvaluator.Tests
 {
     [TestClass]
-    public class SubOperatorTest
+    public class SubOperatorTests
     {
         [TestMethod]
         public void SubOperator_Computes_Correct_Values()
         {
             var sut = new SubOperator();
-            var result = sut.Compute(new Operand("30"), new Operand("20"));
+            var result = sut.Compute(new Operand(30), new Operand(20));
             Assert.AreEqual(10, result);
         }
     }

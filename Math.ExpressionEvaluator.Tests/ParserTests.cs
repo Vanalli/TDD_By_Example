@@ -3,6 +3,7 @@ using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace Math.ExpressionEvaluator.Tests
 {
@@ -10,9 +11,9 @@ namespace Math.ExpressionEvaluator.Tests
     /// Summary description for UnitTest1
     /// </summary>
     [TestClass]
-    public class ParserTest
+    public class ParserTests
     {
-        public ParserTest()
+        public ParserTests()
         {
             //
             // TODO: Add constructor logic here
@@ -62,12 +63,24 @@ namespace Math.ExpressionEvaluator.Tests
         [TestMethod]
         public void Parser_Returns_Addition_Elements()
         {
-            var sut = new Parser();
+            var sut = new Parser(new OperatorFactory(), new OperandFactory());
             var result = sut.Parse("1+2").ToList();
             Assert.AreEqual(3, result.Count);
             Assert.IsInstanceOfType(result[0], typeof(Operand));
             Assert.IsInstanceOfType(result[1], typeof(Operator));
             Assert.IsInstanceOfType(result[2], typeof(Operand));
+        }
+
+        [TestMethod]
+        public void Parse_Calls_Operand_Factory_Create()
+        {
+            var operandFactory = new Mock<IOperandFactory>();
+            operandFactory
+                .Setup(it => it.Create(It.IsAny<int>()))
+                .Verifiable();
+            var sut = new Parser(new OperatorFactory(), operandFactory.Object);
+            sut.Parse("1").ToList();
+            operandFactory.Verify();
         }
     }
 }

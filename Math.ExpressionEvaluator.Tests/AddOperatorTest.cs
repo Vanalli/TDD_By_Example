@@ -13,7 +13,7 @@ namespace Math.ExpressionEvaluator.Tests
         public void AddOperator_Computes_Correct_Value()
         {
             var sut = new AddOperator();
-            var result = sut.Compute(new Operand("10"), new Operand("20"));
+            var result = sut.Compute(new Operand(10), new Operand(20));
             Assert.AreEqual(30, result);
         }
     }

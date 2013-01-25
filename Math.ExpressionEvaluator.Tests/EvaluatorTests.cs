@@ -63,7 +63,8 @@ namespace Math.ExpressionEvaluator.Tests
 
         public static void CheckEvaluation(string s, int expected)
         {
-            var sut = new Evaluator();
+            var parser = new Parser(new OperatorFactory(), new OperandFactory());
+            var sut = new Evaluator(parser);
             var result = sut.Eval(s);
             Assert.AreEqual(expected, result);
         }
@@ -74,7 +75,8 @@ namespace Math.ExpressionEvaluator.Tests
         [ExpectedException(typeof(InvalidOperationException))]
         public void String_Vazia_Ou_Nula_Deve_Retornar_Exception()
         {
-            var sut = new Evaluator();
+            var parser = new Parser(new OperatorFactory(), new OperandFactory());
+            var sut = new Evaluator(parser);
             sut.Eval(String.Empty);
         }
 
@@ -118,6 +120,33 @@ namespace Math.ExpressionEvaluator.Tests
         public void Can_Divide_Two_Integer_Numbers()
         {
             CheckEvaluation("30/5", 6);
+        }
+
+        [TestMethod]
+        public void Multiple_Operations()
+        {
+            CheckEvaluation("2+3*5-8/2", 13);
+        }
+
+        [TestMethod]
+        public void Two_Operations()
+        {
+            CheckEvaluation("2*3-5", 1);
+        }
+
+        [TestMethod]
+        public void Multiple_Operand_And_Operators_Are_Parsed_Correctly()
+        {
+            var sut = new Parser(new OperatorFactory(), new OperandFactory());
+            var result = sut.Parse("1+2*3-4").ToList();
+            Assert.AreEqual(7, result.Count);
+            Assert.IsInstanceOfType(result[0], typeof(Operand));
+            Assert.IsInstanceOfType(result[1], typeof(Operator));
+            Assert.IsInstanceOfType(result[2], typeof(Operand));
+            Assert.IsInstanceOfType(result[3], typeof(Operator));
+            Assert.IsInstanceOfType(result[4], typeof(Operand));
+            Assert.IsInstanceOfType(result[5], typeof(Operator));
+            Assert.IsInstanceOfType(result[6], typeof(Operand));
         }
     }
 }

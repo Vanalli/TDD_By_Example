@@ -22,7 +22,6 @@ namespace Math.ExpressionEvaluator
                 default:
                     throw new InvalidOperationException(string.Format("Unknown operator [{0}]", op));
             }
-            return op == '+' ? (Operator) new AddOperator() : new SubOperator();
         }
     }
 

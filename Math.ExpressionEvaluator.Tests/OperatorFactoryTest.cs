@@ -43,7 +43,7 @@ namespace Math.ExpressionEvaluator.Tests
         }
 
         [TestMethod]
-        public void Divide_Sign_Returns_DivOperator()
+        public void Slash_Sign_Returns_DivOperator()
         {
             Check('/', typeof(DivOperator));
         }

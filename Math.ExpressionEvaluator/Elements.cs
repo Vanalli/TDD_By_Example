@@ -12,7 +12,7 @@ namespace Math.ExpressionEvaluator
 
     public class Operand : Element
     {
-        public Operand(string operand)
+        public Operand(int operand)
         {
             this.Value = Convert.ToInt32(operand);
         }
