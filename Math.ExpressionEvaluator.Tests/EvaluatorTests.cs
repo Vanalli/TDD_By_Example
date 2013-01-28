@@ -148,5 +148,24 @@ namespace Math.ExpressionEvaluator.Tests
             Assert.IsInstanceOfType(result[5], typeof(Operator));
             Assert.IsInstanceOfType(result[6], typeof(Operand));
         }
+
+        [TestMethod]
+        public void First_Returns_First_Element()
+        {
+            var lOperand = new Operand(0);
+            var op = new AddOperator();
+            var rOperand = new Operand(0);
+            var sut = new ElementList(new Element[] { lOperand, op, rOperand });
+            var result = sut.First;
+            Assert.AreEqual(lOperand, result);
+        }
+
+        [TestMethod]
+        public void Two_Operations_Respecting_Precedence()
+        {
+            CheckEvaluation("2+3*5", 17);
+        }
+
+
     }
 }

@@ -52,5 +52,18 @@ namespace Math.ExpressionEvaluator.Tests
             var result = sut.FindOperation();
             Assert.IsNull(result);
         }
+
+        [TestMethod]
+        public void Find_Operation_Returns_Highest_Precedence()
+        {
+            var lOperand = new Operand(0);
+            var op = new MulOperator();
+            var rOperand = new Operand(0);
+            var sut = new ElementList(new Element[] { new Operand(0), new AddOperator(), new Operand(0), lOperand, op, rOperand });
+            var result = sut.FindOperation();
+            Assert.AreEqual(lOperand, result.LOperand);
+            Assert.AreEqual(op, result.Op);
+            Assert.AreEqual(rOperand, result.ROperand);
+        }
     }
 }
