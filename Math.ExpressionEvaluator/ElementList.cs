@@ -30,7 +30,7 @@ namespace Math.ExpressionEvaluator
                 return null;
 
             var index = elements.IndexOf(maxPrecOperator);
-            return new Operation(elements[index - 1] as Operand, elements[index] as Operator, elements[index + 1] as Operand);
+            return new Operation(GetOperand(index - 1), elements[index] as Operator, GetOperand(index + 1));
 
             //for (var i = 0; i < elements.Count; i++)
             //    if (elements[i] is Operator)
@@ -47,6 +47,11 @@ namespace Math.ExpressionEvaluator
             elements.RemoveAt(index + 2);
             elements.RemoveAt(index + 1);
             elements[index] = operand;
+        }
+
+        private Operand GetOperand(int index)
+        {
+            return index < 0 || index >= elements.Count ? null : elements[index] as Operand;
         }
     }
 }

@@ -59,8 +59,6 @@ namespace Math.ExpressionEvaluator.Tests
         //
         #endregion
 
-        #region Helper method
-
         public static void CheckEvaluation(string s, int expected)
         {
             var parser = new Parser(new OperatorFactory(), new OperandFactory());
@@ -68,8 +66,6 @@ namespace Math.ExpressionEvaluator.Tests
             var result = sut.Eval(s);
             Assert.AreEqual(expected, result);
         }
-
-        #endregion
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
@@ -166,6 +162,16 @@ namespace Math.ExpressionEvaluator.Tests
             CheckEvaluation("2+3*5", 17);
         }
 
+        [TestMethod]
+        public void ComplexExpression()
+        {
+            CheckEvaluation("-2+3*(-5+8-9)/2", -11);
+        }
 
+        [TestMethod]
+        public void NegativeNumber()
+        {
+            CheckEvaluation("-3", -3);
+        }
     }
 }

@@ -82,5 +82,15 @@ namespace Math.ExpressionEvaluator.Tests
             sut.Parse("1").ToList();
             operandFactory.Verify();
         }
+
+        [TestMethod]
+        public void NegativeNumber()
+        {
+            var sut = new Parser(new OperatorFactory(), new OperandFactory());
+            var result = sut.Parse("-3").ToList();
+            Assert.AreEqual(2, result.Count);
+            Assert.IsInstanceOfType(result[0], typeof(SubOperator));
+            Assert.AreEqual(3, ((Operand)result[1]).Value);
+        }
     }
 }

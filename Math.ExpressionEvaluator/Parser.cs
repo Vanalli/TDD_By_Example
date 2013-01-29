@@ -25,8 +25,8 @@ namespace Math.ExpressionEvaluator
                     operand += currentChar;
                 else
                 {
-                    //yield return new Operand(Convert.ToInt32(s));
-                    yield return operandFactory.Create(Convert.ToInt32(operand));
+                    if(operand != "")
+                        yield return operandFactory.Create(Convert.ToInt32(operand));
                     operand = "";
                     yield return operatorFactory.Create(currentChar);
                 }

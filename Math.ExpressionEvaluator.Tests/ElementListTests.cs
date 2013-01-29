@@ -65,5 +65,17 @@ namespace Math.ExpressionEvaluator.Tests
             Assert.AreEqual(op, result.Op);
             Assert.AreEqual(rOperand, result.ROperand);
         }
+
+        [TestMethod]
+        public void Find_Operation_Can_Handle_Negative_Numbers()
+        {
+            var op = new SubOperator();
+            var rOperand = new Operand(1);
+            var sut = new ElementList(new Element[] { op, rOperand });
+            var result = sut.FindOperation();
+            Assert.AreEqual(0, result.LOperand);
+            Assert.AreEqual(op, result.Op);
+            Assert.AreEqual(rOperand, result.ROperand);
+        }
     }
 }
